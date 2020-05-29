@@ -21,6 +21,9 @@ import com.domi.sdklibrary.unity.Unity2Android;
 public class sdkMainActivity extends UnityPlayerActivity {
     private static String TAG = "sdkMainActivity";
     private int mStepSum = 0;
+    public int GetStepSum() {
+       return mStepSum;
+    }
     Unity2Android inst;
 
     private static final int REFRESH_STEP_WHAT = 0;
@@ -35,7 +38,7 @@ public class sdkMainActivity extends UnityPlayerActivity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         Log.i("sdkMainActivity", "onCreate");
-        inst = new Unity2Android();
+        inst = new Unity2Android(this);
         //初始化计步模块
         TodayStepManager.startTodayStepService(getApplication());
 
@@ -96,7 +99,7 @@ public class sdkMainActivity extends UnityPlayerActivity {
     private void updateStepCount() {
         Log.i(TAG, "updateStepCount : " + mStepSum);
         String step = String.valueOf(mStepSum);
-        inst.callUnity("Main Camera","FromAndroid",step);
+        inst.callUnity("__ManagersNotDestroy__","GetCurPlayerStep",step);
 //        TextView stepTextView = (TextView) findViewById(R.id.stepTextView);
 //        stepTextView.setText(mStepSum + "步");
 

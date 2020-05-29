@@ -3,6 +3,8 @@ package com.domi.sdklibrary.unity;
 import android.app.Activity;
 import android.widget.Toast;
 
+import com.domi.sdklibrary.sdkMainActivity;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -11,10 +13,17 @@ import java.lang.reflect.Method;
  */
 public class Unity2Android {
 
+
+    public Unity2Android(sdkMainActivity _activity) {
+        _mainActivity = _activity;
+    }
     /**
      * unity项目启动时的的上下文
      */
     private Activity _unityActivity;
+
+    private sdkMainActivity _mainActivity;
+
     /**
      * 获取unity项目的上下文
      * @return
@@ -72,4 +81,14 @@ public class Unity2Android {
         callUnity("Main Camera","FromAndroid", "hello unity i'm android");
         return true;
     }
+
+    /**
+     *被unity端所调用
+     * 返回当前用户所行走的步数
+     */
+    public int GetCurPlayerStep () {
+        return _mainActivity.GetStepSum();
+    }
+
+
 }
